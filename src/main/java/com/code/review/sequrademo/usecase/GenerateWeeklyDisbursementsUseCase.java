@@ -12,14 +12,17 @@ import java.util.List;
 @Component
 public class GenerateWeeklyDisbursementsUseCase {
 
-    @Autowired
-    OrderService orderService;
-    @Autowired
     DisbursementService disbursementService;
+    OrderService orderService;
+
+    public GenerateWeeklyDisbursementsUseCase(DisbursementService disbursementService, OrderService orderService) {
+        this.disbursementService = disbursementService;
+        this.orderService = orderService;
+    }
 
     /**
-     * Get last Week completed Orders
-     * Generate disbursement
+     * Get last Week completed Orders List
+     * Generate disbursement per order
      * Send to external payment service?
      */
     public void execute(){
@@ -28,6 +31,6 @@ public class GenerateWeeklyDisbursementsUseCase {
             Disbursement disbursement = disbursementService.createDisbursementFromOrder(order);
             disbursementService.save(disbursement);
         });
-        // TODO: Send to external payment service or event notify
+        // TODO: Send to external payment service or publish event
     }
 }

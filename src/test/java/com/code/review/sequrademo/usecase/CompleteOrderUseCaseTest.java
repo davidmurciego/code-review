@@ -7,6 +7,8 @@ import com.code.review.sequrademo.service.DisbursementService;
 import com.code.review.sequrademo.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import static org.mockito.Mockito.*;
 
@@ -29,11 +31,12 @@ class CompleteOrderUseCaseTest {
     }
 
     //Set Order to Complete, calculate disbursement and persist
-    //@Test
-    public void setCompleteAtDateWhenOrderIsCompleted() throws Exception {
+    @Test
+    public void setOrderToCompleteAndCreateOrderDisbursementThenPersist() throws Exception {
         Long orderId = 1L;
         Date completedAt = new Date();
-        oderMock = new Order(orderId, 2L, 3L, 49.99, new Date(), completedAt);
+        Date createdAt = new SimpleDateFormat("dd-MM-yyyy HH:mm:SS").parse("2021-11-10 10:00:00");
+        oderMock = new Order(orderId, 1L, 1L, 49.99, createdAt, completedAt);
         disbursementMock = new Disbursement(oderMock.getId(),oderMock.getMerchantId(),oderMock.getWeek(),(oderMock.getAmount()*feeMock.getPercentage())/100,feeMock.getPercentage(),"FAKE");
         when(orderService.completeOrder(orderId, completedAt)).thenReturn(oderMock);
         when(disbursementService.createDisbursementFromOrder(oderMock)).thenReturn(disbursementMock);
@@ -41,9 +44,9 @@ class CompleteOrderUseCaseTest {
 
         completeOrderUseCase.execute(orderId,completedAt);
 
-        verify(orderService,times(1)).completeOrder(orderId, completedAt);
-        verify(disbursementService,times(1)).createDisbursementFromOrder(oderMock);
-        verify(disbursementService,times(1)).save(disbursementMock);
+        verify(orderService,times(1)).completeOrder(any(), any());
+        verify(disbursementService,times(1)).createDisbursementFromOrder(any());
+        verify(disbursementService,times(1)).save(any());
     }
 
 }
