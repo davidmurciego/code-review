@@ -86,6 +86,6 @@ Each use case is exposed via API
 
 David Murciego - davidmurciego@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/davidmurciego/code-review](hhttps://github.com/davidmurciego/code-review)
 
 (<a href="#top">back to top</a>)
