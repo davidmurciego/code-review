@@ -23,7 +23,7 @@ I have identified 3 use cases that I explain below
 >Not implemented: call external billing service
 
 <strong>Get disbursements</strong>
->Get disbursement for a given week and merchant(optional)
+>Get disbursement from completed orders for a given week and merchant(optional)
 
 ### Built With
 * SpringBoot 2.6.3
